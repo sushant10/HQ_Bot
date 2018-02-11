@@ -4,6 +4,7 @@ import operator
 import json
 import wikipedia
 import os
+from google import google
 
 
 #Sample questions from previous games
@@ -37,18 +38,18 @@ remove_words=[
     'in', 'to', '?', ',', 'these', 'is', 'does'
 ]
 
+#get questions and options
 def get_question():
 	return questions, answers
 
-#simplify question and remove which,what....etc
+#simplify question and remove which,what....etc //question is string
 def simplify_ques(question):
-	for q in question:
-		qwords = q.split()
-		cleanwords  = [word for word in qwords if word.lower() not in remove_words]
-		new_key = ' '.join(cleanwords)
-		sample_questions[new_key]=sample_questions[q]
-		del sample_questions[q]
+	qwords = question.split()
+	cleanwords  = [word for word in qwords if word.lower() not in remove_words]
+	clean_question = ' '.join(cleanwords)
+	return clean_question
 
+#get page(probably not needed)
 def get_page(link):
     try:
         if link.find('mailto')!=-1:
@@ -59,11 +60,21 @@ def get_page(link):
     except (urllib2.URLError,urllib2.HTTPError,ValueError) as e:
                 return ''
 
+#return points from wiki //options is a list, sim_ques is string
+def wikipedia_results(sim_ques,options):
+	points=[]
+	wiki_results=wikipedia.search(sim_ques)
+	page=wikipedia.page(wiki_results[0])
+	content=page.content()
+	for o in options:
+		points=content.count(o)+points
+	if 'not' in sim_ques:
+		for p in points:
+			p=-p
+	return points
+
 #return points from google
 def google_results(sim_ques,option):
-
-#return points from wiki
-def wikipedia_results(sim_ques,option):
 
 #return points for each question
 def get_points():
