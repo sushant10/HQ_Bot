@@ -5,7 +5,7 @@ import json
 import wikipedia
 import os
 from google import google
-
+from bs4 import BeautifulSoup
 
 #Sample questions from previous games
 sample_questions = {
@@ -14,8 +14,8 @@ sample_questions = {
 		'Amelia Earhart',
 		'Waldo'],
 	'Which of these is a US State?':
-		['Chihuahua'
-		'Saskatchewan' 
+		['Chihuahua',
+		'Saskatchewan' ,
 		'Louisiana'],
 	'Which of these is a common material used in 3D printers?':
 		['Durocarbon filament',
@@ -28,14 +28,19 @@ sample_questions = {
 	'Which NFL great started his pro career with 10 straight losses?':
 		['Brett Favre',
 		'Dan Marino',
-		'Troy Aikman']
+		'Troy Aikman'],
+	'Why cant we go to the sun?':
+		['hot',
+		'cold',
+		'far'
+		]
 }
 
 # List of words to clean from the question during google search
 remove_words=[
-	'who', 'what', 'where', 'when', 'of', 'and', 'that', 'have', 'for',
-    'on', 'with', 'as', 'this', 'by', 'from', 'they', 'a', 'an', 'and', 'my',
-    'in', 'to', '?', ',', 'these', 'is', 'does'
+	'who', 'what', 'where', 'when', 'of', 'and', 'that', 'have', 'for','the','why','the',
+    'on', 'with', 'as', 'this', 'by', 'from', 'they', 'a', 'an', 'and', 'my','are',
+    'in', 'to', '?', ',', 'these', 'is', 'does', 'which', 'his','her','not','we','go'
 ]
 
 #get questions and options
@@ -49,7 +54,7 @@ def simplify_ques(question):
 	clean_question = ' '.join(cleanwords)
 	return clean_question
 
-#get page(probably not needed)
+#get page
 def get_page(link):
     try:
         if link.find('mailto')!=-1:
@@ -59,7 +64,7 @@ def get_page(link):
         return html
     except (urllib2.URLError,urllib2.HTTPError,ValueError) as e:
                 return ''
-
+'''
 #return points from wiki //options is a list, sim_ques is string
 def wikipedia_results(sim_ques,options):
 	points=[]
@@ -75,7 +80,7 @@ def wikipedia_results(sim_ques,options):
 
 #return points from google
 def google_results(sim_ques,options):
-	num_pages=1
+	num_pages=3
 	points=[]
 	content=""
 	search_results=google.search(sim_ques,num_pages)
@@ -87,19 +92,62 @@ def google_results(sim_ques,options):
 		for p in points:
 			p=-p
 	return points
+'''
+def split_string(source):
+    splitlist= ",!-.;/?@ #"
+    output=[]
+    atsplit = True 
+    for char in source:
+        if char in splitlist:
+            atsplit=True
+        else:
+            if atsplit:
+                output.append(char)
+                atsplit= False
+            else:
+                output[-1] = output[-1] +char
+    return output
+
+def google_wiki(sim_ques,options):
+	num_pages=1
+	points=list()
+	content=""
+	for o in options:
+		o+=' wiki'
+		o=o.lower()
+		search_results=google.search(o,num_pages)
+		link=search_results[0].link
+		content=get_page(link)
+		soup = BeautifulSoup(content)
+		temp=0
+		page=soup.get_text().lower()
+		#print(page)
+		words=split_string(sim_ques)
+		for word in words:
+			temp=temp+page.count(word)
+			#print(word+str(page.count(word)))
+		#print(page.count("the"))
+		points.append(temp)
+	return points
+
 
 #return points for each question
 def get_points():
 	simq=""
+	x=0
 	for key in sample_questions:
+		x=x+1
 		points=[]
 		simq=simplify_ques(key)
 		options=sample_questions[key]
-		points+=wikipedia_results(simq,options)
-		points+=google_results(simq,options)
-		print(simq+"\n")
+		simq=simq[:-1]
+		simq=simq.lower()
+		#points+=wikipedia_results(simq,options)
+		#points+=google_results(simq,options)
+		points=google_wiki(simq,options)
+		print(str(x)+". "+simq+"\n")
 		for point,option in zip(points,options):
-			print(option+" {points: "+str(point)+" }\n")
+			print(option+" { points: "+str(point)+" }\n")
 
 get_points()
 
