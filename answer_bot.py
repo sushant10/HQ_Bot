@@ -26,12 +26,13 @@ def get_question():
 def simplify_ques(question):
     qwords = question.split()
     cleanwords = [word for word in qwords if word.lower() not in remove_words]
-    clean_question = ' '.join(cleanwords)
-    tr=""
-    for ch in clean_question:
+    temp = ' '.join(cleanwords)
+    clean_question=""
+    #remove 
+    for ch in tr:
     	if ch!="?":
-    		tr=tr+ch
-    return tr
+    		clean_question=clean_question+ch
+    return clean_question
 
 
 # get page
