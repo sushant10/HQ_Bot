@@ -12,19 +12,19 @@ sample_questions = {
 	'Who are readers asked to find in the "Where\'s Waldo" books?': 
 		['Michael Bulbe',
 		'Amelia Earhart',
-		'Waldo']
+		'Waldo'],
 	'Which of these is a US State?':
 		['Chihuahua'
 		'Saskatchewan' 
-		'Louisiana']
+		'Louisiana'],
 	'Which of these is a common material used in 3D printers?':
 		['Durocarbon filament',
 		'Polyabsorbic styrene',
-		'Polyactic acid']
+		'Polyactic acid'],
 	'Which of these songs does not feature whistling?':
 		['Graveyard Whistling',
 		'Young Folks',
-		'Pumped Up Kicks']
+		'Pumped Up Kicks'],
 	'Which NFL great started his pro career with 10 straight losses?':
 		['Brett Favre',
 		'Dan Marino',
@@ -65,9 +65,9 @@ def wikipedia_results(sim_ques,options):
 	points=[]
 	wiki_results=wikipedia.search(sim_ques)
 	page=wikipedia.page(wiki_results[0])
-	content=page.content()
+	content=page.content
 	for o in options:
-		points=content.count(o)+points
+		points=[content.count(o)]+points
 	if 'not' in sim_ques.lower():
 		for p in points:
 			p=-p
@@ -82,7 +82,7 @@ def google_results(sim_ques,options):
 	for s in search_results:
 		content+=s.description
 	for o in options:
-		points=content.count(o)+points
+		points=[content.count(o)]+points
 	if 'not' in sim_ques.lower():
 		for p in points:
 			p=-p
@@ -90,6 +90,18 @@ def google_results(sim_ques,options):
 
 #return points for each question
 def get_points():
+	simq=""
+	for key in sample_questions:
+		points=[]
+		simq=simplify_ques(key)
+		options=sample_questions[key]
+		points+=wikipedia_results(simq,options)
+		points+=google_results(simq,options)
+		print(simq+"\n")
+		for point,option in zip(points,options):
+			print(option+" {points: "+str(point)+" }\n")
+
+get_points()
 
 
 
