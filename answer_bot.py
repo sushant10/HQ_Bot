@@ -75,6 +75,7 @@ def wikipedia_results(sim_ques,options):
 
 #return points from google
 def google_results(sim_ques,option):
+	
 
 #return points for each question
 def get_points():
