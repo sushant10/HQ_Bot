@@ -27,7 +27,11 @@ def simplify_ques(question):
     qwords = question.split()
     cleanwords = [word for word in qwords if word.lower() not in remove_words]
     clean_question = ' '.join(cleanwords)
-    return clean_question
+    tr=""
+    for ch in clean_question:
+    	if ch!="?":
+    		tr=tr+ch
+    return tr
 
 
 # get page
@@ -121,7 +125,6 @@ def get_points():
         points = []
         simq = simplify_ques(key)
         options = sample_questions[key]
-        simq = simq[:-1]
         simq = simq.lower()
         # points+=wikipedia_results(simq,options)
         # points+=google_results(simq,options)
@@ -133,6 +136,4 @@ def get_points():
 
 if __name__ == "__main__":
     load_json()
-    print(remove_words)
-    print(sample_questions)
     get_points()
