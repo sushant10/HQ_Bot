@@ -1,7 +1,6 @@
 #answering bot for trivia HQ and Cash Show
 import urllib.request as urllib2
 import operator
-import json
 import wikipedia
 import os
 from google import google
@@ -32,8 +31,39 @@ sample_questions = {
 	'Why cant we go to the sun?':
 		['hot',
 		'cold',
-		'far'
-		]
+		'far'],
+	'Which of these movies is about baseball? ':
+		['Kingpin',
+		'CaddyShack',
+		'Mr Baseball'],
+	'Who wrote the poem “O Captain! My Captain!”?':
+		['William Shakespeare',
+		'Walt Whitman',
+		'Sarah Palin'],
+	'Wallace & Gromit are movie characters in which style of animation?':
+		['Cel animation',
+		'Claymation',
+		'3D CGI'],
+	'Which city has two of the four longest suspension bridges in the US?':
+		['San Francisco',
+		'New York City',
+		'Tacoma'],
+	'Which of these describes a board used in logistics and transportation?':
+		['Pallet',
+		'Palette',
+		'Palate'],
+	'Who wrote the most #1 hit singles after Paul McCartney and Lennon?':
+		['Michael Jackson',
+		'Max Martin',
+		'Taylor Swift'],
+	'Which one of these Japanese alcoholic drinks is made from rice, yams and wear or brown sugar?':
+		['Umeshu',
+		'Shochu',
+		'Chubai'],
+	'In a 1961 speech, JFK announced his moon ambitions, but also acknowledged which other strategy?':
+		['Navy SEAL training',
+		'Dismantling the CIA',
+		'Cambodia opium trade']
 }
 
 # List of words to clean from the question during google search
@@ -124,7 +154,7 @@ def google_wiki(sim_ques,options):
 		#print(page)
 		words=split_string(sim_ques)
 		for word in words:
-			temp=temp+page.count(word)
+			temp=temp+page.count((" "+word+" "))
 			#print(word+str(page.count(word)))
 		#print(page.count("the"))
 		points.append(temp)
@@ -145,7 +175,7 @@ def get_points():
 		#points+=wikipedia_results(simq,options)
 		#points+=google_results(simq,options)
 		points=google_wiki(simq,options)
-		print(str(x)+". "+simq+"\n")
+		print(str(x)+". "+key+"\n")
 		for point,option in zip(points,options):
 			print(option+" { points: "+str(point)+" }\n")
 
