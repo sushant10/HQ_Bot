@@ -68,14 +68,25 @@ def wikipedia_results(sim_ques,options):
 	content=page.content()
 	for o in options:
 		points=content.count(o)+points
-	if 'not' in sim_ques:
+	if 'not' in sim_ques.lower():
 		for p in points:
 			p=-p
 	return points
 
 #return points from google
-def google_results(sim_ques,option):
-	
+def google_results(sim_ques,options):
+	num_pages=1
+	points=[]
+	content=""
+	search_results=google.search(sim_ques,num_pages)
+	for s in search_results:
+		content+=s.description
+	for o in options:
+		points=content.count(o)+points
+	if 'not' in sim_ques.lower():
+		for p in points:
+			p=-p
+	return points
 
 #return points for each question
 def get_points():
