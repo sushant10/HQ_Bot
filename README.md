@@ -1,3 +1,3 @@
 # HQ_Bot
-## In Dev
+## Currently n devolpment
 For fun purposes only
