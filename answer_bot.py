@@ -10,7 +10,7 @@ sample_questions = {}
 # List of words to clean from the question during google search
 remove_words = []
 
-
+#load sample questions
 def load_json():
     global remove_words, sample_questions
     remove_words = json.loads(open("settings.json").read())["remove_words"]
@@ -28,8 +28,8 @@ def simplify_ques(question):
     cleanwords = [word for word in qwords if word.lower() not in remove_words]
     temp = ' '.join(cleanwords)
     clean_question=""
-    #remove 
-    for ch in tr:
+    #remove ?
+    for ch in temp:
     	if ch!="?":
     		clean_question=clean_question+ch
     return clean_question
@@ -45,38 +45,6 @@ def get_page(link):
         return html
     except (urllib2.URLError, urllib2.HTTPError, ValueError) as e:
         return ''
-
-
-'''
-#return points from wiki //options is a list, sim_ques is string
-def wikipedia_results(sim_ques,options):
-	points=[]
-	wiki_results=wikipedia.search(sim_ques)
-	page=wikipedia.page(wiki_results[0])
-	content=page.content
-	for o in options:
-		points=[content.count(o)]+points
-	if 'not' in sim_ques.lower():
-		for p in points:
-			p=-p
-	return points
-
-#return points from google
-def google_results(sim_ques,options):
-	num_pages=3
-	points=[]
-	content=""
-	search_results=google.search(sim_ques,num_pages)
-	for s in search_results:
-		content+=s.description
-	for o in options:
-		points=[content.count(o)]+points
-	if 'not' in sim_ques.lower():
-		for p in points:
-			p=-p
-	return points
-'''
-
 
 def split_string(source):
     splitlist = ",!-.;/?@ #"
