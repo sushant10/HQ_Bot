@@ -77,15 +77,13 @@ def google_wiki(sim_ques, options):
 		soup = BeautifulSoup(content)
 		page = soup.get_text().lower()
 
-'''
+		'''
 		#search a non wiki page.. searching becoming too slow
 		link = search_results[0].link
 		content = get_page(link)
 		soup= BeautifulSoup(content)
 		page= page + soup.get_text().lower()
-'''
-
-		# print(page)
+		'''
 		temp=0
 		words = split_string(sim_ques)
 		for word in words:
