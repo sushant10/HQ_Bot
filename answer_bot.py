@@ -3,6 +3,12 @@ import json
 import urllib.request as urllib2
 from bs4 import BeautifulSoup
 from google import google
+from PIL import Image
+import pytesseract
+import argparse
+import cv2
+import os
+import pyscreenshot as grab
 
 # Sample questions from previous games
 sample_questions = {}
@@ -16,6 +22,17 @@ def load_json():
 	remove_words = json.loads(open("settings.json").read())["remove_words"]
 	sample_questions = json.loads(open("questions.json").read())
 
+#take screenshot of Show
+def screen_grab(loc):
+	return None
+
+#parse OCR // pytesseract
+def parse_OCR():
+	return None
+
+# get questions and options
+def read_screen(screen):
+	return None
 
 # get questions and options
 def get_question():
