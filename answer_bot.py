@@ -19,8 +19,8 @@ remove_words = []
 #load sample questions
 def load_json():
 	global remove_words, sample_questions
-	remove_words = json.loads(open("settings.json").read())["remove_words"]
-	sample_questions = json.loads(open("questions.json").read())
+	remove_words = json.loads(open("Data/settings.json").read())["remove_words"]
+	sample_questions = json.loads(open("Data/questions.json").read())
 
 #take screenshot of Show
 def screen_grab(loc):
@@ -94,6 +94,7 @@ def google_wiki(sim_ques, options):
 		soup = BeautifulSoup(content)
 		page = soup.get_text().lower()
 
+		#Too slow to check another page
 		'''
 		#search a non wiki page.. searching becoming too slow
 		link = search_results[0].link
