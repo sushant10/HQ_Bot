@@ -70,7 +70,8 @@ def read_screen():
 	# show the output images
 	cv2.imshow("Image", image)
 	cv2.imshow("Output", gray)
-	cv2.waitKey(0)
+	if cv2.waitKey(0):
+		cv2.destroyAllWindows()
 
 # get questions and options
 def get_question():
