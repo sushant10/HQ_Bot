@@ -22,16 +22,18 @@ def load_json():
 	remove_words = json.loads(open("Data/settings.json").read())["remove_words"]
 	sample_questions = json.loads(open("Data/questions.json").read())
 
-# return screenshot of question 
-def screen_grab():
+# take screenshot of question 
+def screen_grab(to_save):
 	# 31,228 495,655 co-ords of screenshot// left side of screen
 	im = Imagegrab.grab(bbox=(31,228,495,655))
-	im.save('Screens/to_ocr.png')
+	im.save(to_save)
 
 # get OCR text //questions and options
 def read_screen():
+	screenshot_file="Screens/to_ocr.png"
+	screen_grab(screenshot_file)
 	ap = argparse.ArgumentParser(description='HQ_Bot')
-	ap.add_argument("-i", "--image", required=False,default="Screens/screen1.png",help="path to input image to be OCR'd")
+	ap.add_argument("-i", "--image", required=False,default=screenshot_file,help="path to input image to be OCR'd")
 	ap.add_argument("-p", "--preprocess", type=str, default="thresh", help="type of preprocessing to be done")
 	args = vars(ap.parse_args())
 
@@ -54,16 +56,17 @@ def read_screen():
 	os.remove(filename)
 	print(text)
 	# show the output images
-	cv2.imshow("Image", image)
+	'''cv2.imshow("Image", image)
 	cv2.imshow("Output", gray)
+	os.remove(screenshot_file)
 	if cv2.waitKey(0):
 		cv2.destroyAllWindows()
-
-	
+	'''
+	return text
 
 # get questions and options from OCR text
 def parse_question(text):
-
+	
 	return questions, answers
 
 
@@ -140,8 +143,8 @@ def google_wiki(sim_ques, options):
 	return points
 
 
-# return points for each question
-def get_points():
+# return points for sample_questions
+def get_points_sample():
 	simq = ""
 	x = 0
 	for key in sample_questions:
