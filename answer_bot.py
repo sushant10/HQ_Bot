@@ -24,8 +24,8 @@ def load_json():
 
 # take screenshot of question 
 def screen_grab(to_save):
-	# 31,228 495,655 co-ords of screenshot// left side of screen
-	im = Imagegrab.grab(bbox=(31,228,495,640))
+	# 31,228 485,620 co-ords of screenshot// left side of screen
+	im = Imagegrab.grab(bbox=(31,228,485,620))
 	im.save(to_save)
 
 # get OCR text //questions and options
