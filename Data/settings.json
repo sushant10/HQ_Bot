@@ -32,6 +32,8 @@
     "which",
     "his",
     "her",
+    "have"
+    "it"
     "not",
     "we",
     "go",
@@ -39,6 +41,7 @@
     ",",
     "!",
     "'",
+    "has"
     "\""
   ],
   "negative_words": [

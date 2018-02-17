@@ -25,7 +25,7 @@ def load_json():
 # take screenshot of question 
 def screen_grab(to_save):
 	# 31,228 495,655 co-ords of screenshot// left side of screen
-	im = Imagegrab.grab(bbox=(31,228,495,655))
+	im = Imagegrab.grab(bbox=(31,228,495,640))
 	im.save(to_save)
 
 # get OCR text //questions and options
@@ -54,7 +54,7 @@ def read_screen():
 	# load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file
 	text = pytesseract.image_to_string(Image.open(filename))
 	os.remove(filename)
-	print(text)
+	#print(text)
 	# show the output images
 	'''cv2.imshow("Image", image)
 	cv2.imshow("Output", gray)
@@ -65,9 +65,26 @@ def read_screen():
 	return text
 
 # get questions and options from OCR text
-def parse_question(text):
-	
-	return questions, answers
+def parse_question():
+	text = read_screen()
+	lines = text.splitlines()
+	question = ""
+	options = list()
+	flag=False
+
+	for line in lines :
+		if not flag :
+			question=question+line+" "
+		
+		if '?' in line :
+			flag=True
+			continue
+		
+		if flag :
+			if line != '' :
+				options.append(line)
+			
+	return question, options
 
 
 # simplify question and remove which,what....etc //question is string
@@ -160,8 +177,20 @@ def get_points_sample():
 		for point, option in zip(points, options):
 			print(option + " { points: " + str(point) + " }\n")
 
+def get_points_live():
+	question,options=parse_question()
+	simq = ""
+	points = []
+	simq = simplify_ques(question)
+	simq = simq.lower()
+	# points+=wikipedia_results(simq,options)
+	# points+=google_results(simq,options)
+	points = google_wiki(simq, options)
+	print(question + "\n")
+	for point, option in zip(points, options):
+		print(option + " { points: " + str(point) + " }\n")
 
 if __name__ == "__main__":
 	#load_json()
 	#get_points()
-	read_screen()
+	get_points_live()
