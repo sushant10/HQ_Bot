@@ -8,7 +8,7 @@ import pytesseract
 import argparse
 import cv2
 import os
-import pyscreenshot as grab
+import pyscreenshot as Imagegrab
 
 # Sample questions from previous games
 sample_questions = {}
@@ -22,23 +22,16 @@ def load_json():
 	remove_words = json.loads(open("Data/settings.json").read())["remove_words"]
 	sample_questions = json.loads(open("Data/questions.json").read())
 
-# take screenshot of question
-def screen_grab(loc):
-	return None
+# return screenshot of question 
+def screen_grab():
+	# 31,228 495,655 co-ords of screenshot// left side of screen
+	im = Imagegrab.grab(bbox=(31,228,495,655))
+	im.save('Screens/to_ocr.png')
 
-# construct the argument parse and parse the arguments // pytesseract
-def parse_OCR():
-	ap = argparse.ArgumentParser()
-	ap.add_argument("-i", "--image", required=True,
-	help="path to input image to be OCR'd")
-	ap.add_argument("-p", "--preprocess", type=str, default="thresh",
-	help="type of preprocessing to be done")
-	args = vars(ap.parse_args())
-
-# get questions and options
+# get OCR text //questions and options
 def read_screen():
 	ap = argparse.ArgumentParser(description='HQ_Bot')
-	ap.add_argument("-i", "--image", required=True,help="path to input image to be OCR'd")
+	ap.add_argument("-i", "--image", required=False,default="Screens/screen1.png",help="path to input image to be OCR'd")
 	ap.add_argument("-p", "--preprocess", type=str, default="thresh", help="type of preprocessing to be done")
 	args = vars(ap.parse_args())
 
@@ -60,15 +53,17 @@ def read_screen():
 	text = pytesseract.image_to_string(Image.open(filename))
 	os.remove(filename)
 	print(text)
- 
 	# show the output images
 	cv2.imshow("Image", image)
 	cv2.imshow("Output", gray)
 	if cv2.waitKey(0):
 		cv2.destroyAllWindows()
 
+	
+
 # get questions and options from OCR text
-def parse_question():
+def parse_question(text):
+
 	return questions, answers
 
 
