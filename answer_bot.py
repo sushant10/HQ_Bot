@@ -54,6 +54,7 @@ def read_screen():
 	# load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file
 	text = pytesseract.image_to_string(Image.open(filename))
 	os.remove(filename)
+	os.remove(screenshot_file)
 	#print(text)
 	# show the output images
 	'''cv2.imshow("Image", image)
@@ -191,6 +192,16 @@ def get_points_live():
 		print(option + " { points: " + str(point) + " }\n")
 
 if __name__ == "__main__":
-	#load_json()
+	load_json()
 	#get_points()
-	get_points_live()
+	while(1):
+		keypressed = input('Press s to screenshot or q to quit:')
+		if keypressed == 's':
+			get_points_live()
+		elif keypressed == 'q':
+			break
+		else:
+			print("Unknown input")
+
+
+
