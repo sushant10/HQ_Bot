@@ -25,7 +25,7 @@ def load_json():
 # take screenshot of question 
 def screen_grab(to_save):
 	# 31,228 485,620 co-ords of screenshot// left side of screen
-	im = Imagegrab.grab(bbox=(31,228,485,620))
+	im = Imagegrab.grab(bbox=(31,228,485,920))
 	im.save(to_save)
 
 # get OCR text //questions and options
@@ -134,13 +134,13 @@ def google_wiki(sim_ques, options):
 	content = ""
 	for o in options:
 		o = o.lower()
-		search_results = google.search(o, num_pages)
+		#search_results = google.search(o, num_pages)
 		o += ' wiki'
 		search_wiki = google.search(o, num_pages)
 
 		link = search_wiki[0].link
 		content = get_page(link)
-		soup = BeautifulSoup(content)
+		soup = BeautifulSoup(content,"lxml")
 		page = soup.get_text().lower()
 
 		#Too slow to check another page
@@ -194,14 +194,14 @@ def get_points_live():
 if __name__ == "__main__":
 	load_json()
 	#get_points()
+	
 	while(1):
-		keypressed = input('Press s to screenshot or q to quit:')
+		keypressed = input('Press s to screenshot or q to quit:\n')
 		if keypressed == 's':
 			get_points_live()
 		elif keypressed == 'q':
 			break
 		else:
 			print("Unknown input")
-
-
+	
 
