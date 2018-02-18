@@ -96,8 +96,9 @@ def simplify_ques(question):
 	clean_question=""
 	#remove ?
 	for ch in temp:
-		if ch!="?":
+		if ch!="?" or ch!="\"" or ch!="\'":
 			clean_question=clean_question+ch
+
 	return clean_question
 
 
@@ -132,6 +133,7 @@ def google_wiki(sim_ques, options):
 	num_pages = 1
 	points = list()
 	content = ""
+	words = split_string(sim_ques)
 	for o in options:
 		o = o.lower()
 		#search_results = google.search(o, num_pages)
@@ -152,7 +154,6 @@ def google_wiki(sim_ques, options):
 		page= page + soup.get_text().lower()
 		'''
 		temp=0
-		words = split_string(sim_ques)
 		for word in words:
 			temp = temp + page.count(word)
 		# print(word+str(page.count(word)))
