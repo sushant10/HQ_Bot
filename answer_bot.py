@@ -75,7 +75,7 @@ def parse_question():
 
 	for line in lines :
 		if not flag :
-			question=question+line+" "
+			question=question+" "+line
 		
 		if '?' in line :
 			flag=True
@@ -154,7 +154,7 @@ def google_wiki(sim_ques, options):
 		temp=0
 		words = split_string(sim_ques)
 		for word in words:
-			temp = temp + page.count((" " + word + " "))
+			temp = temp + page.count(word)
 		# print(word+str(page.count(word)))
 		# print(page.count("the"))
 		points.append(temp)
@@ -193,9 +193,9 @@ def get_points_live():
 
 if __name__ == "__main__":
 	load_json()
-	#get_points()
+	get_points_sample()
 	
-	while(1):
+	'''while(1):
 		keypressed = input('Press s to screenshot or q to quit:\n')
 		if keypressed == 's':
 			get_points_live()
@@ -203,5 +203,5 @@ if __name__ == "__main__":
 			break
 		else:
 			print("Unknown input")
-	
+	'''
 
