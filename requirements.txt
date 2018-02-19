@@ -1,5 +1,5 @@
 simplejson
-pip install Google-Search-API
+Google-Search-API
 Pillow
 opencv-contrib-python
 pytesseract

@@ -203,11 +203,12 @@ def get_points_live():
 
 if __name__ == "__main__":
 	load_json()
-	#get_points_sample()
 	while(1):
-		keypressed = input('Press s to screenshot or q to quit:\n')
+		keypressed = input('s to screenshot live game, sampq to run against sample questions or q to quit:\n')
 		if keypressed == 's':
 			get_points_live()
+		elif keypressed == 'sampq':
+			get_points_sample()
 		elif keypressed == 'q':
 			break
 		else:
