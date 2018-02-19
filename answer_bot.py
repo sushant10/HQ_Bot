@@ -146,9 +146,12 @@ def google_wiki(sim_ques, options):
 	num_pages = 1
 	points = list()
 	content = ""
+	maxo=""
+	maxp=0
 	words = split_string(sim_ques)
 	for o in options:
 		o = o.lower()
+		original=o
 		#search_results = google.search(o, num_pages)
 		o += ' wiki'
 		search_wiki = google.search(o, num_pages)
@@ -170,7 +173,10 @@ def google_wiki(sim_ques, options):
 		for word in words:
 			temp = temp + page.count(word)
 		points.append(temp)
-	return points
+		if temp>maxp:
+			maxp=temp
+			maxo=original
+	return points,maxo
 
 
 # return points for sample_questions
@@ -185,10 +191,13 @@ def get_points_sample():
 		simq = simq.lower()
 		# points+=wikipedia_results(simq,options)
 		# points+=google_results(simq,options)
-		points = google_wiki(simq, options)
-		print(str(x) + ". " + key + "\n")
+		maxo=""
+		points, maxo = google_wiki(simq, options)
+		print("\n" + str(x) + ". " + bcolors.UNDERLINE + key + bcolors.ENDC + "\n")
 		for point, option in zip(points, options):
-			print(option + " { points: " + str(point) + " }\n")
+			if maxo == option.lower():
+				option=bcolors.OKGREEN+option+bcolors.ENDC
+			print(option + " { points: " + bcolors.BOLD + str(point) + bcolors.ENDC + " }\n")
 
 def get_points_live():
 	question,options=parse_question()
@@ -196,15 +205,18 @@ def get_points_live():
 	points = []
 	simq = simplify_ques(question)
 	simq = simq.lower()
-	points = google_wiki(simq, options)
-	print(question + "\n")
+	maxo=""
+	points,maxo = google_wiki(simq, options)
+	print("\n" + bcolors.UNDERLINE + question + bcolors.ENDC + "\n")
 	for point, option in zip(points, options):
-		print(option + " { points: " + str(point) + " }\n")
+		if maxo == option.lower():
+			option=bcolors.OKGREEN+option+bcolors.ENDC
+		print(option + " { points: " + bcolors.BOLD + str(point) + bcolors.ENDC + " }\n")
 
 if __name__ == "__main__":
 	load_json()
 	while(1):
-		keypressed = input('Press s to screenshot live game, sampq to run against sample questions or q to quit:\n')
+		keypressed = input(bcolors.WARNING +'\nPress s to screenshot live game, sampq to run against sample questions or q to quit:\n' + bcolors.ENDC)
 		if keypressed == 's':
 			get_points_live()
 		elif keypressed == 'sampq':
@@ -212,6 +224,6 @@ if __name__ == "__main__":
 		elif keypressed == 'q':
 			break
 		else:
-			print("Unknown input")
+			print(bcolors.FAIL + "\nUnknown input" + bcolors.ENDC)
 	
 
