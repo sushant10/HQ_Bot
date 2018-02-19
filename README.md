@@ -38,7 +38,7 @@ $ git clone https://github.com/sushant10/HQ_Bot
 $ cd HQ_Bot
 $ pip3 install -r requirements.txt
 $ python3 answer_bot.py
-s to screenshot live game, sampq to run against sample questions or q to quit:\n
+Press s to screenshot live game, sampq to run against sample questions or q to quit:\n
 s
 ...Question...
 ```
