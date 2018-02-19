@@ -51,7 +51,7 @@ All contributions welcome.
 - [All Contributors][link-contributors]
 
 ## Special shout out
-[Jake Mor][jake-mor] was the person behind HQuack, the most viral popular bot to help solve HQ questions. His implementation inspired me to try my own. I recommend reading this [Article][jake-more] to learn more about the whole story.
+[Jake Mor][jake-mor] was the person behind HQuack, the most viral popular bot to help solve HQ questions. His implementation inspired me to try my own. I recommend reading this [article][jake-more] to learn more about the whole story.
 
 ## Useful links
 
