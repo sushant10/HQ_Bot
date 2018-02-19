@@ -25,7 +25,7 @@ def load_json():
 # take screenshot of question 
 def screen_grab(to_save):
 	# 31,228 485,620 co-ords of screenshot// left side of screen
-	im = Imagegrab.grab(bbox=(31,228,485,920))
+	im = Imagegrab.grab(bbox=(31,228,485,620))
 	im.save(to_save)
 
 # get OCR text //questions and options
@@ -95,7 +95,7 @@ def simplify_ques(question):
 	temp = ' '.join(cleanwords)
 	clean_question=""
 	#remove ?
-	for ch in temp:
+	for ch in temp: 
 		if ch!="?" or ch!="\"" or ch!="\'":
 			clean_question=clean_question+ch
 
@@ -194,9 +194,9 @@ def get_points_live():
 
 if __name__ == "__main__":
 	load_json()
-	get_points_sample()
+	#get_points_sample()
 	
-	'''while(1):
+	while(1):
 		keypressed = input('Press s to screenshot or q to quit:\n')
 		if keypressed == 's':
 			get_points_live()
@@ -204,5 +204,5 @@ if __name__ == "__main__":
 			break
 		else:
 			print("Unknown input")
-	'''
+	
 
