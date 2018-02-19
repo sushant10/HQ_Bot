@@ -42,6 +42,9 @@ Press s to screenshot live game, sampq to run against sample questions or q to q
 s
 ...Question...
 ```
+## Screenshots
+
+<img src="https://github.com/sushant10/HQ_Bot/blob/master/Screens/screenshot2.png" width="500" height="320" />
 
 ## Contributing
 
@@ -76,3 +79,4 @@ The MIT License (MIT)
 [link-tesseract]: https://github.com/tesseract-ocr/tesseract/wiki
 [jake-mor]: http://jakemor.com/
 [jake-more]: https://medium.com/@jakemor/hquack-my-public-hq-trivia-bot-is-shutting-down-5d9fcdbc9f6e
+[sampq]: ()
