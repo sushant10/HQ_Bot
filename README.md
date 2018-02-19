@@ -20,11 +20,11 @@ Use python 3.6. In particular the packages/libraries used are...
 *To easily install these*
 1. Install python 3.6
 2. Install above packages
-    * `bash $ pip3 install -r requirements.txt`
+    * `$ pip3 install -r requirements.txt`
 3. For tesseract 
-    * `bash $ brew install tesseract`
+    * `$ brew install tesseract`
 4. For opencv
-    * `bash $ brew install opencv`
+    * `$ brew install opencv`
 
 
 ## Usage
