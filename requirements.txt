@@ -1,0 +1,9 @@
+simplejson
+Pillow
+opencv-contrib-python
+pytesseract
+google-cloud-vision
+beautifulsoup4
+Vocabulary
+lxml
+Wikipedia-API
