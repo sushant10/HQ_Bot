@@ -42,6 +42,8 @@ def screen_grab(to_save):
 def read_screen():
 	screenshot_file="Screens/to_ocr.png"
 	screen_grab(screenshot_file)
+
+	#prepare argparse
 	ap = argparse.ArgumentParser(description='HQ_Bot')
 	ap.add_argument("-i", "--image", required=False,default=screenshot_file,help="path to input image to be OCR'd")
 	ap.add_argument("-p", "--preprocess", type=str, default="thresh", help="type of preprocessing to be done")
@@ -65,13 +67,14 @@ def read_screen():
 	text = pytesseract.image_to_string(Image.open(filename))
 	os.remove(filename)
 	os.remove(screenshot_file)
-	#print(text)
+	
 	# show the output images
 	'''cv2.imshow("Image", image)
 	cv2.imshow("Output", gray)
 	os.remove(screenshot_file)
 	if cv2.waitKey(0):
 		cv2.destroyAllWindows()
+	print(text)
 	'''
 	return text
 
@@ -166,8 +169,6 @@ def google_wiki(sim_ques, options):
 		temp=0
 		for word in words:
 			temp = temp + page.count(word)
-		# print(word+str(page.count(word)))
-		# print(page.count("the"))
 		points.append(temp)
 	return points
 
@@ -195,8 +196,6 @@ def get_points_live():
 	points = []
 	simq = simplify_ques(question)
 	simq = simq.lower()
-	# points+=wikipedia_results(simq,options)
-	# points+=google_results(simq,options)
 	points = google_wiki(simq, options)
 	print(question + "\n")
 	for point, option in zip(points, options):
