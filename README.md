@@ -29,7 +29,7 @@ Use python 3.6. In particular the packages/libraries used are...
 
 ## Usage
 
-Make sure all packages above are installed. For android phones use [Vysor][link-vysor] and for iOS use quicktime player. **The code expects the phone to be on the left side of the screen.** If you want to change the screenshot co-ordinates change the values inside the ImageGrab in the `screen_grab()` function.
+Make sure all packages above are installed. For android phones use [Vysor][link-vysor] and for iOS use quicktime player. **The code expects the phone to be on the left side of the screen.** If you want to change the screenshot co-ordinates change the values inside the ImageGrab in the `screen_grab()` function. To use the script : 
 
 ```bash
 $ git clone https://github.com/sushant10/HQ_Bot
