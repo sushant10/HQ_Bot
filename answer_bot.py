@@ -141,6 +141,8 @@ def split_string(source):
 				output[-1] = output[-1] + char
 	return output
 
+#answer by combining two words
+def smart_answer(content,ques):
 
 def google_wiki(sim_ques, options):
 	num_pages = 1
