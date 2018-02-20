@@ -10,6 +10,7 @@ import cv2
 import os
 import pyscreenshot as Imagegrab
 
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -112,7 +113,7 @@ def simplify_ques(question):
 		if ch!="?" or ch!="\"" or ch!="\'":
 			clean_question=clean_question+ch
 
-	return clean_question
+	return clean_question.lower()
 
 
 # get page
@@ -142,7 +143,14 @@ def split_string(source):
 	return output
 
 #answer by combining two words
-def smart_answer(content,ques):
+def smart_answer(content,qwords):
+	zipped= zip(qwords,qwords[1:])
+	points=0
+	for el in zipped:
+		temp_str = el[0]+" "+el[1]
+		if content.count(temp_str)!=0 :
+			points+=1000
+	return points
 
 def google_wiki(sim_ques, options):
 	num_pages = 1
@@ -174,6 +182,7 @@ def google_wiki(sim_ques, options):
 		temp=0
 		for word in words:
 			temp = temp + page.count(word)
+		temp+=smart_answer(page, words)
 		points.append(temp)
 		if temp>maxp:
 			maxp=temp
@@ -206,7 +215,6 @@ def get_points_live():
 	simq = ""
 	points = []
 	simq = simplify_ques(question)
-	simq = simq.lower()
 	maxo=""
 	points,maxo = google_wiki(simq, options)
 	print("\n" + bcolors.UNDERLINE + question + bcolors.ENDC + "\n")
