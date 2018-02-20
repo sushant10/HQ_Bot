@@ -44,7 +44,7 @@ s
 ```
 ## Screenshots
 
-<img src="https://github.com/sushant10/HQ_Bot/blob/master/Screens/screenshot3.png" width="900" height="570" />
+<img src="https://github.com/sushant10/HQ_Bot/blob/master/Screens/screenshot3.png" width="900" height="530" />
 <img src="https://github.com/sushant10/HQ_Bot/blob/master/Screens/screenshot2.png" width="500" height="320" />
 
 
