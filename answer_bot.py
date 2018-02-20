@@ -10,7 +10,7 @@ import cv2
 import os
 import pyscreenshot as Imagegrab
 
-
+# for terminal colors 
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -21,10 +21,10 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-# Sample questions from previous games
+# sample questions from previous games
 sample_questions = {}
 
-# List of words to clean from the question during google search
+# list of words to clean from the question during google search
 remove_words = []
 
 # load sample questions
@@ -116,7 +116,7 @@ def simplify_ques(question):
 	return clean_question.lower()
 
 
-# get page
+# get web page
 def get_page(link):
 	try:
 		if link.find('mailto') != -1:
@@ -127,6 +127,7 @@ def get_page(link):
 	except (urllib2.URLError, urllib2.HTTPError, ValueError) as e:
 		return ''
 
+# split the string
 def split_string(source):
 	splitlist = ",!-.;/?@ #"
 	output = []
@@ -142,16 +143,19 @@ def split_string(source):
 				output[-1] = output[-1] + char
 	return output
 
-#answer by combining two words
+# normalize points // get rid of common appearances 
+def normalize():
+
+# answer by combining two words
 def smart_answer(content,qwords):
 	zipped= zip(qwords,qwords[1:])
 	points=0
-	for el in zipped:
-		temp_str = el[0]+" "+el[1]
-		if content.count(temp_str)!=0 :
+	for el in zipped :
+		if content.count(el[0]+" "+el[1])!=0 :
 			points+=1000
 	return points
 
+# use google to get wiki page
 def google_wiki(sim_ques, options):
 	num_pages = 1
 	points = list()
@@ -210,6 +214,7 @@ def get_points_sample():
 				option=bcolors.OKGREEN+option+bcolors.ENDC
 			print(option + " { points: " + bcolors.BOLD + str(point) + bcolors.ENDC + " }\n")
 
+# return points for live game // by screenshot
 def get_points_live():
 	question,options=parse_question()
 	simq = ""
