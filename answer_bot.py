@@ -1,3 +1,12 @@
+'''
+
+	TODO:
+	* Implement normalize func
+	* Attempt to google wiki \"...\" part of question
+	* Rid of common appearances in 3 options
+	* Automate screenshot process
+
+'''
 # answering bot for trivia HQ and Cash Show
 import json
 import urllib.request as urllib2
@@ -12,14 +21,14 @@ import pyscreenshot as Imagegrab
 
 # for terminal colors 
 class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+	HEADER = '\033[95m'
+	OKBLUE = '\033[94m'
+	OKGREEN = '\033[92m'
+	WARNING = '\033[93m'
+	FAIL = '\033[91m'
+	ENDC = '\033[0m'
+	BOLD = '\033[1m'
+	UNDERLINE = '\033[4m'
 
 # sample questions from previous games
 sample_questions = {}
@@ -67,7 +76,7 @@ def read_screen():
 	# load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file
 	text = pytesseract.image_to_string(Image.open(filename))
 	os.remove(filename)
-	os.remove(screenshot_file)
+	#os.remove(screenshot_file)
 	
 	# show the output images
 	'''cv2.imshow("Image", image)
@@ -100,7 +109,6 @@ def parse_question():
 				options.append(line)
 			
 	return question, options
-
 
 # simplify question and remove which,what....etc //question is string
 def simplify_ques(question):
@@ -143,8 +151,17 @@ def split_string(source):
 				output[-1] = output[-1] + char
 	return output
 
-# normalize points // get rid of common appearances 
+# normalize points // get rid of common appearances // "quote" wiki option + ques
 def normalize():
+	return None	
+
+# take screen shot of screen every 2 seconds and check for question
+def check_screen():
+	return None
+
+# wait for certain milli seconds 
+def wait(msec):
+	return None
 
 # answer by combining two words
 def smart_answer(content,qwords):
