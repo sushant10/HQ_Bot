@@ -41,10 +41,15 @@ sample_questions = {}
 # list of words to clean from the question during google search
 remove_words = []
 
+# negative words
+negative_words= []
+
+
 # load sample questions
 def load_json():
-	global remove_words, sample_questions
+	global remove_words, sample_questions, negative_words
 	remove_words = json.loads(open("Data/settings.json").read())["remove_words"]
+	negative_words = json.loads(open("Data/settings.json").read())["negative_words"]
 	sample_questions = json.loads(open("Data/questions.json").read())
 
 # take screenshot of question 
@@ -117,7 +122,10 @@ def parse_question():
 
 # simplify question and remove which,what....etc //question is string
 def simplify_ques(question):
-	qwords = question.split()
+	neg=False
+	qwords = question.lower().split()
+	if [i for i in qwords if i in negative_words]:
+		neg=True
 	cleanwords = [word for word in qwords if word.lower() not in remove_words]
 	temp = ' '.join(cleanwords)
 	clean_question=""
@@ -126,7 +134,7 @@ def simplify_ques(question):
 		if ch!="?" or ch!="\"" or ch!="\'":
 			clean_question=clean_question+ch
 
-	return clean_question.lower()
+	return clean_question.lower(),neg
 
 
 # get web page
@@ -178,12 +186,13 @@ def smart_answer(content,qwords):
 	return points
 
 # use google to get wiki page
-def google_wiki(sim_ques, options):
+def google_wiki(sim_ques, options, neg):
 	num_pages = 1
 	points = list()
 	content = ""
 	maxo=""
 	maxp=0
+	minp=0
 	words = split_string(sim_ques)
 	for o in options:
 		o = o.lower()
@@ -209,6 +218,7 @@ def google_wiki(sim_ques, options):
 		for word in words:
 			temp = temp + page.count(word)
 		temp+=smart_answer(page, words)
+		
 		points.append(temp)
 		if temp>maxp:
 			maxp=temp
@@ -223,13 +233,13 @@ def get_points_sample():
 	for key in sample_questions:
 		x = x + 1
 		points = []
-		simq = simplify_ques(key)
+		simq,neg = simplify_ques(key)
 		options = sample_questions[key]
 		simq = simq.lower()
 		# points+=wikipedia_results(simq,options)
 		# points+=google_results(simq,options)
 		maxo=""
-		points, maxo = google_wiki(simq, options)
+		points, maxo = google_wiki(simq, options,neg)
 		print("\n" + str(x) + ". " + bcolors.UNDERLINE + key + bcolors.ENDC + "\n")
 		for point, option in zip(points, options):
 			if maxo == option.lower():
@@ -238,12 +248,13 @@ def get_points_sample():
 
 # return points for live game // by screenshot
 def get_points_live():
+	neg= False
 	question,options=parse_question()
 	simq = ""
 	points = []
-	simq = simplify_ques(question)
+	simq, neg = simplify_ques(question)
 	maxo=""
-	points,maxo = google_wiki(simq, options)
+	points,maxo = google_wiki(simq, options, neg)
 	print("\n" + bcolors.UNDERLINE + question + bcolors.ENDC + "\n")
 	for point, option in zip(points, options):
 		if maxo == option.lower():
