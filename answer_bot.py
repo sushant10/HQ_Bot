@@ -76,19 +76,20 @@ def read_screen():
 	if args["preprocess"] == "thresh":
 		gray = cv2.threshold(gray, 0, 255,
 			cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-
 	elif args["preprocess"] == "blur":
 		gray = cv2.medianBlur(gray, 3)
 
 	# store grayscale image as a temp file to apply OCR
 	filename = "Screens/{}.png".format(os.getpid())
 	cv2.imwrite(filename, gray)
+
 	# load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file
 	text = pytesseract.image_to_string(Image.open(filename))
 	os.remove(filename)
 	os.remove(screenshot_file)
 	
 	# show the output images
+
 	'''cv2.imshow("Image", image)
 	cv2.imshow("Output", gray)
 	os.remove(screenshot_file)
@@ -96,6 +97,7 @@ def read_screen():
 		cv2.destroyAllWindows()
 	print(text)
 	'''
+
 	return text
 
 # get questions and options from OCR text
@@ -194,10 +196,12 @@ def google_wiki(sim_ques, options, neg):
 	maxp=-sys.maxsize
 	words = split_string(sim_ques)
 	for o in options:
+		
 		o = o.lower()
 		original=o
-		#search_results = google.search(o, num_pages)
 		o += ' wiki'
+
+		# get google search results for option + 'wiki'
 		search_wiki = google.search(o, num_pages)
 
 		link = search_wiki[0].link
@@ -205,15 +209,8 @@ def google_wiki(sim_ques, options, neg):
 		soup = BeautifulSoup(content,"lxml")
 		page = soup.get_text().lower()
 
-		#Too slow to check another page
-		'''
-		#search a non wiki page.. searching becoming too slow
-		link = search_results[0].link
-		content = get_page(link)
-		soup= BeautifulSoup(content)
-		page= page + soup.get_text().lower()
-		'''
 		temp=0
+
 		for word in words:
 			temp = temp + page.count(word)
 		temp+=smart_answer(page, words)
