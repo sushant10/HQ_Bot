@@ -5,7 +5,6 @@
 	* Attempt to google wiki \"...\" part of question
 	* Rid of common appearances in 3 options
 	* Automate screenshot process
-	* Handle negative 
 
 	//Script is in working condition at all times
 	//TODO is for improving accuracy
