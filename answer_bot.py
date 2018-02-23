@@ -233,8 +233,6 @@ def get_points_sample():
 		simq,neg = simplify_ques(key)
 		options = sample_questions[key]
 		simq = simq.lower()
-		# points+=wikipedia_results(simq,options)
-		# points+=google_results(simq,options)
 		maxo=""
 		points, maxo = google_wiki(simq, options,neg)
 		print("\n" + str(x) + ". " + bcolors.UNDERLINE + key + bcolors.ENDC + "\n")
@@ -242,6 +240,7 @@ def get_points_sample():
 			if maxo == option.lower():
 				option=bcolors.OKGREEN+option+bcolors.ENDC
 			print(option + " { points: " + bcolors.BOLD + str(point) + bcolors.ENDC + " }\n")
+
 
 # return points for live game // by screenshot
 def get_points_live():
@@ -258,6 +257,8 @@ def get_points_live():
 			option=bcolors.OKGREEN+option+bcolors.ENDC
 		print(option + " { points: " + bcolors.BOLD + str(point) + bcolors.ENDC + " }\n")
 
+
+# menu// main func
 if __name__ == "__main__":
 	load_json()
 	while(1):
