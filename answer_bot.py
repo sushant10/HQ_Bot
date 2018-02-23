@@ -23,6 +23,7 @@ import argparse
 import cv2
 import os
 import pyscreenshot as Imagegrab
+import sys
 
 # for terminal colors 
 class bcolors:
@@ -191,8 +192,7 @@ def google_wiki(sim_ques, options, neg):
 	points = list()
 	content = ""
 	maxo=""
-	maxp=0
-	minp=0
+	maxp=-sys.maxsize
 	words = split_string(sim_ques)
 	for o in options:
 		o = o.lower()
@@ -218,7 +218,8 @@ def google_wiki(sim_ques, options, neg):
 		for word in words:
 			temp = temp + page.count(word)
 		temp+=smart_answer(page, words)
-		
+		if neg:
+			temp*=-1
 		points.append(temp)
 		if temp>maxp:
 			maxp=temp
