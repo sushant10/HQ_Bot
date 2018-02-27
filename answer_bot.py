@@ -5,6 +5,7 @@
 	* Attempt to google wiki \"...\" part of question
 	* Rid of common appearances in 3 options
 	* Automate screenshot process
+	* Implement Asynchio for concurrency
 
 	//Script is in working condition at all times
 	//TODO is for improving accuracy
