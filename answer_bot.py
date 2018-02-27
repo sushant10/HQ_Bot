@@ -55,7 +55,7 @@ def load_json():
 # take screenshot of question 
 def screen_grab(to_save):
 	# 31,228 485,620 co-ords of screenshot// left side of screen
-	im = Imagegrab.grab(bbox=(31,228,485,620))
+	im = Imagegrab.grab(bbox=(31,228,485,590))
 	im.save(to_save)
 
 # get OCR text //questions and options
@@ -250,12 +250,15 @@ def get_points_live():
 	points = []
 	simq, neg = simplify_ques(question)
 	maxo=""
+	m=1 
+	if neg:
+		m=-1
 	points,maxo = google_wiki(simq, options, neg)
 	print("\n" + bcolors.UNDERLINE + question + bcolors.ENDC + "\n")
 	for point, option in zip(points, options):
 		if maxo == option.lower():
 			option=bcolors.OKGREEN+option+bcolors.ENDC
-		print(option + " { points: " + bcolors.BOLD + str(point) + bcolors.ENDC + " }\n")
+		print(option + " { points: " + bcolors.BOLD + str(point*m) + bcolors.ENDC + " }\n")
 
 
 # menu// main func
