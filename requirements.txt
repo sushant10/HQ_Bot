@@ -1,5 +1,4 @@
 simplejson
-Google-Search-API
 Pillow
 opencv-contrib-python
 pytesseract
@@ -7,3 +6,5 @@ beautifulsoup4
 pyscreenshot
 lxml
 wikipedia
+wxPython
+Google-Search-API

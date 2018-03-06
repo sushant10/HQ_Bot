@@ -24,6 +24,7 @@ import cv2
 import os
 import pyscreenshot as Imagegrab
 import sys
+import wx
 
 # for terminal colors 
 class bcolors:
@@ -45,6 +46,14 @@ remove_words = []
 # negative words
 negative_words= []
 
+# GUI interface 
+def gui_interface():
+	app = wx.App()
+	frame = wx.Frame(None, -1, 'win.py')
+	frame.SetDimensions(0,0,640,480)
+	frame.Show()
+	app.MainLoop()
+	return None
 
 # load sample questions
 def load_json():
@@ -56,7 +65,7 @@ def load_json():
 # take screenshot of question 
 def screen_grab(to_save):
 	# 31,228 485,620 co-ords of screenshot// left side of screen
-	im = Imagegrab.grab(bbox=(31,228,485,590))
+	im = Imagegrab.grab(bbox=(31,228,485,620))
 	im.save(to_save)
 
 # get OCR text //questions and options

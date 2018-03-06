@@ -18,6 +18,7 @@ Use python 3.6. In particular the packages/libraries used are...
 * lxml - Beautifulsoup parser
 * opencv2 - Image maniplulation
 * pyscreenshot - Take screenshot of the game
+* wxPython - GUI interface
 
 *To easily install these*
 1. Install python 3.6
