@@ -14,7 +14,7 @@ class HQ_Bot(wx.Frame):
 		#cbtn.Bind(wx.EVT_BUTTON, self.OnClose)
 
 		cbtn = wx.Button(pnl, label='Live game', pos=(325,325))
-		cbtn.Bind(wx.EVT_BUTTON, self.ans)
+		cbtn.Bind(wx.EVT_BUTTON, self.a())
 
 
 		self.SetSize((650, 650))
@@ -25,8 +25,9 @@ class HQ_Bot(wx.Frame):
 	def OnClose(self, e):
 		self.Close(True)
 
-	def ans():
-		return 0
+	def a():
+		wx.MessageBox('Button Clicked', 'Info', wx.OK | wx.ICON_INFORMATION)
+
 
 def main():
 
