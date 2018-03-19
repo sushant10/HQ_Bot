@@ -8,3 +8,4 @@ lxml
 wikipedia
 wxPython
 Google-Search-API
+halo
