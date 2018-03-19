@@ -25,6 +25,7 @@ import os
 import pyscreenshot as Imagegrab
 import sys
 import wx
+from halo import Halo
 
 # for terminal colors 
 class bcolors:
@@ -70,6 +71,8 @@ def screen_grab(to_save):
 
 # get OCR text //questions and options
 def read_screen():
+	spinner = Halo(text='Reading screen', spinner='bouncingBar')
+	spinner.start()
 	screenshot_file="Screens/to_ocr.png"
 	screen_grab(screenshot_file)
 
@@ -107,7 +110,7 @@ def read_screen():
 		cv2.destroyAllWindows()
 	print(text)
 	'''
-
+	spinner.succeed()
 	return text
 
 # get questions and options from OCR text
@@ -199,6 +202,8 @@ def smart_answer(content,qwords):
 
 # use google to get wiki page
 def google_wiki(sim_ques, options, neg):
+	spinner = Halo(text='Googling and searching Wikipedia', spinner='dots2')
+	spinner.start()
 	num_pages = 1
 	points = list()
 	content = ""
@@ -230,6 +235,7 @@ def google_wiki(sim_ques, options, neg):
 		if temp>maxp:
 			maxp=temp
 			maxo=original
+	spinner.succeed()
 	return points,maxo
 
 
