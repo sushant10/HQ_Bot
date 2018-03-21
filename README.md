@@ -65,7 +65,6 @@ All contributions welcome.
 
 - [Wikipedia-API][link-wikiapi]
 - [Google-Search-API][link-gapi]
-- [Mike-Almonds Implementation][link-mike]
 - [Tesseract][link-tesseract]
 
 ## License
