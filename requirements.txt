@@ -7,5 +7,5 @@ pyscreenshot
 lxml
 wikipedia
 wxPython
-Google-Search-API
+git+https://github.com/abenassi/Google-Search-API/
 halo
