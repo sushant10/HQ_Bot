@@ -66,7 +66,7 @@ def load_json():
 # take screenshot of question 
 def screen_grab(to_save):
 	# 31,228 485,620 co-ords of screenshot// left side of screen
-	im = Imagegrab.grab(bbox=(31,228,485,620))
+	im = Imagegrab.grab(bbox=(31,228,485,640))
 	im.save(to_save)
 
 # get OCR text //questions and options
@@ -111,6 +111,7 @@ def read_screen():
 	print(text)
 	'''
 	spinner.succeed()
+	spinner.stop()
 	return text
 
 # get questions and options from OCR text
@@ -236,6 +237,7 @@ def google_wiki(sim_ques, options, neg):
 			maxp=temp
 			maxo=original
 	spinner.succeed()
+	spinner.stop()
 	return points,maxo
 
 
