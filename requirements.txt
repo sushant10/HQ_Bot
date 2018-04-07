@@ -1,3 +1,6 @@
+unidecode
+future
+selenium
 simplejson
 Pillow
 opencv-contrib-python
